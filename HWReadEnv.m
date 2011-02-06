@@ -14,7 +14,7 @@
 +(NSDictionary*)readEnvironment {
     NSPipe *outPipe = [NSPipe pipe];
     NSFileHandle *outHandle = nil;
-	NSPipe *inPipe = [NSPipe pipe];
+    NSPipe *inPipe = [NSPipe pipe];
     NSFileHandle* inHandle = nil;
     NSTask *task = [[NSTask alloc] init];
     NSData *result = nil;
@@ -29,26 +29,26 @@
     
     NSString *profileScript = [NSString stringWithContentsOfFile:[[NSBundle mainBundle] pathForResource:@"HWReadEnv" ofType:@"sh"] encoding:NSUTF8StringEncoding error:nil];
     
-	[task setLaunchPath:@"/bin/bash"];
-	[task setStandardOutput:outPipe];
-	[task setStandardInput:inPipe];
-	
+    [task setLaunchPath:@"/bin/bash"];
+    [task setStandardOutput:outPipe];
+    [task setStandardInput:inPipe];
+    
     // Send our environment setup and reading script to bash stdin.
-	inHandle = [inPipe fileHandleForWriting];
-	[inHandle writeData:[profileScript dataUsingEncoding:NSUTF8StringEncoding]];
-	[inHandle closeFile];
-	
-	[task launch];
-	
+    inHandle = [inPipe fileHandleForWriting];
+    [inHandle writeData:[profileScript dataUsingEncoding:NSUTF8StringEncoding]];
+    [inHandle closeFile];
+    
+    [task launch];
+    
     // Read bash output.
-	outHandle = [outPipe fileHandleForReading];
-	result = [outHandle readDataToEndOfFile];
+    outHandle = [outPipe fileHandleForReading];
+    result = [outHandle readDataToEndOfFile];
     [outHandle closeFile];
     [task release];
     
-	output = [[NSString alloc] initWithData:result encoding:NSUTF8StringEncoding];
+    output = [[NSString alloc] initWithData:result encoding:NSUTF8StringEncoding];
     lines = [output componentsSeparatedByCharactersInSet:[NSCharacterSet newlineCharacterSet]]; 
-	
+    
     // Locate the separator and separate the subsequent strings to get a key & value.
     for (line in lines) {
         if (separatorFound) {
