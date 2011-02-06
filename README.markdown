@@ -1,7 +1,7 @@
 HWReadEnv
 =========
 
-HWReadEnv is a MIT-licensed utility class for reading the users real environment variables. You know, the ones that are set in .bash_profile and it's siblings. 
+HWReadEnv is a MIT-licensed Objective-C utility class for reading the users real environment variables. You know, the ones that are set in .bash_profile and it's siblings. 
 
 Rationale
 ---------
